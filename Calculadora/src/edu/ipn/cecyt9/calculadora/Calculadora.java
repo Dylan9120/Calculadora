@@ -22,8 +22,7 @@ import javax.swing.border.EmptyBorder;
  * Interfaz para nuestra calculadora basica
  * 
  * @author:  emmanuel 
- * @version:  1.0 
- * @date: 06-09-2015 
+ * @version:  1.0
  */
 public class Calculadora extends JFrame {
 
@@ -53,7 +52,7 @@ public class Calculadora extends JFrame {
 	 */
 	public Calculadora() {
 		super();
-		setSize(250, 300);
+		setSize(350, 400);
 		setTitle("Calculadora Simple");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -87,10 +86,15 @@ public class Calculadora extends JFrame {
 		panelOperaciones.setBorder(new EmptyBorder(4, 4, 4, 4));
 
 		nuevoBotonOperacion("+");
+		nuevoBotonOperacion("^2");
 		nuevoBotonOperacion("-");
+		nuevoBotonOperacion("2√");
 		nuevoBotonOperacion("*");
+		nuevoBotonOperacion("sin");
 		nuevoBotonOperacion("/");
+		nuevoBotonOperacion("cos");
 		nuevoBotonOperacion("=");
+		nuevoBotonOperacion("tan");
 		nuevoBotonOperacion("CE");
 
 		panel.add("East", panelOperaciones);
@@ -123,7 +127,7 @@ public class Calculadora extends JFrame {
 	/**
 	 * Crea un botón de operacion y lo enlaza con sus eventos.
 	 * 
-	 * @param operacion
+	 * @param operacion 
 	 */
 	private void nuevoBotonOperacion(String operacion) {
 		JButton btn = new JButton(operacion);
@@ -149,7 +153,7 @@ public class Calculadora extends JFrame {
 	 */
 	private void numeroPulsado(String digito) {
 		if (pantalla.getText().equals("0") || nuevaOperacion) {
-			pantalla.setText(digito);
+			pantalla.setText(digito); 
 		} else {
 			pantalla.setText(pantalla.getText() + digito);
 		}
@@ -184,17 +188,38 @@ public class Calculadora extends JFrame {
 	 * Calcula el resultado y lo muestra por pantalla
 	 */
 	private void calcularResultado() {
-		if (operacion.equals("+")) {
-			resultado += new Double(pantalla.getText());
-		} else if (operacion.equals("-")) {
-			resultado -= new Double(pantalla.getText());
-		} else if (operacion.equals("/")) {
-			resultado /= new Double(pantalla.getText());
-		} else if (operacion.equals("*")) {
-			resultado *= new Double(pantalla.getText());
-		}
-
-		pantalla.setText("" + resultado);
-		operacion = "";
+        if (operacion.equals("+")) {
+            resultado += new Double(pantalla.getText());
+        } else 
+            if (operacion.equals("-")) {
+                resultado -= new Double(pantalla.getText());
+            } else 
+                if (operacion.equals("/")) {
+                    resultado /= new Double(pantalla.getText());
+                } else 
+                    if (operacion.equals("*")) {
+                        resultado *= new Double(pantalla.getText());
+                    } else
+                        if (operacion.equals("^2")) {
+                            resultado = Math.pow(resultado, 2);
+                        } else 
+                            if (operacion.equals("2√")) {
+                                resultado = Math.sqrt(resultado);
+                            } else 
+                                if(operacion.equals("sin")||operacion.equals("cos")||operacion.equals("tan")){
+                                    resultado2 = Math.toRadians(resultado);
+                                    if (operacion.equals("sin")) {
+                                        resultado = Math.sin(resultado2);
+                                    } else 
+                                        if (operacion.equals("cos")) {
+                                            resultado = Math.cos(resultado2);
+                                        } else 
+                                            if (operacion.equals("tan")) {
+                                                resultado = Math.tan(resultado2);
+                                            }
+                                }
+                
+            pantalla.setText("" + resultado);
+            operacion = "";
 	}
 }
